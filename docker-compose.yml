@@ -1,0 +1,26 @@
+version: "2.0"
+services:
+  app:
+    container_name: visgpt
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    working_dir: /content
+    # command: python webui.py --xformers --listen --enable-insecure-extension-access
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - .:/content
+    ports:
+      - 7860:7860
+    environment:
+      CUDA_VERSION: 11.7.1
+      PYTHON_VERSION: 3.8
+      CONDA_ENV_NAME: pytorch-cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]

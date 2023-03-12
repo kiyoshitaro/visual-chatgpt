@@ -16,26 +16,8 @@ See our paper: [<font size=5>Visual ChatGPT: Talking, Drawing and Editing with V
 ## Quick Start
 
 ```
-# create a new environment
-conda create -n visgpt python=3.8
-
-# activate the new environment
-conda activate visgpt
-
-#  prepare the basic environments
-pip install -r requirement.txt
-
-# download the visual foundation models
-bash download.sh
-
-# prepare your private openAI private key
-export OPENAI_API_KEY={Your_Private_Openai_Key}
-
-# create a folder to save images
-mkdir ./image
-
-# Start Visual ChatGPT !
-python visual_chatgpt.py
+docker build -t visgpt:1 --build-arg --force-rm -f Dockerfile .
+docker run -e "OPENAI_API_KEY=sd-..." --gpus all -it --name "visgpt" -v `pwd`:/content/ visgpt:1
 ```
 
 ## GPU memory usage
@@ -69,5 +51,3 @@ We appreciate the open source of the following projects:
 [InstructPix2Pix](https://github.com/timothybrooks/instruct-pix2pix) &#8194; 
 [CLIPSeg](https://github.com/timojl/clipseg) &#8194;
 [BLIP](https://github.com/salesforce/BLIP) &#8194;
-
-
